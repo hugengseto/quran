@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/vite'; // Import plugin Vite resmi
 
 export default defineConfig({
     plugins: [
@@ -8,15 +8,12 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-        tailwindcss(),
+        tailwindcss(), // Tambahkan plugin ini
     ],
     server: {
-        host: '0.0.0.0', // AGAR BISA DIAKSES DARI LUAR CONTAINER
+        host: '0.0.0.0',
         hmr: {
             host: 'localhost',
-        },
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
         },
     },
 });

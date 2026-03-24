@@ -17,12 +17,19 @@ class QuranController extends Controller
         return view('quran.index', compact('surahs'));
     }
 
-    public function show($nomor): View
+    public function show($nomor)
     {
-        // Mengambil detail surah berdasarkan nomor
+        // Ambil detail surah aktif
         $response = Http::get("https://equran.id/api/v2/surat/{$nomor}");
         $surah = $response->json()['data'];
 
-        return view('quran.show', compact('surah'));
+        // Ambil daftar semua surah untuk dropdown
+        $allSurahResponse = Http::get("https://equran.id/api/v2/surat");
+        $daftarSurah = $allSurahResponse->json()['data'];
+
+        $surah['suratSebelumnya'] = $surah['suratSebelumnya'] ?? false;
+        $surah['suratSelanjutnya'] = $surah['suratSelanjutnya'] ?? false;
+
+        return view('quran.show', compact('surah', 'daftarSurah'));
     }
 }
