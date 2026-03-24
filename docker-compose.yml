@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: docker/php.dockerfile
-    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}" # Biar file milik user Fedora Anda
+    user: "${DOCKER_UID:-1001}:${DOCKER_GID:-1001}" # Biar file milik user Fedora Anda
     volumes:
       - ./:/var/www/html:Z # :Z untuk izin SELinux di Fedora
     networks:
@@ -34,7 +34,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD:-root}
       MYSQL_USER: laravel_user
     ports:
-      - "${FORWARD_DB_PORT:-3306}:3306"
+      - "${FORWARD_DB_PORT:-3307}:3306"
     volumes:
       - db_data:/var/lib/mysql:Z
     networks:
@@ -63,7 +63,7 @@ services:
   # Frontend (Vite & Tailwind)
   node:
     image: node:20-alpine
-    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}"
+    user: "${DOCKER_UID:-1001}:${DOCKER_GID:-1001}"
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html:Z
